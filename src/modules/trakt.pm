@@ -7,10 +7,10 @@ use feature "say";
 
 sub parse
 {
-    my ($self, $line, $irc, $channel, $nick) = @_;
+    my ($self, $line, $irc, $config, $channel, $nick) = @_;
     if (/^:(.+?)!.+?@.+? PRIVMSG ${channel} :trakt (.+?)$/i)
     {
-        my $json = LWP::UserAgent -> new -> get("http://api.trakt.tv/user/profile.json/<yourapikeyhere>/" . $2) -> decoded_content;
+        my $json = LWP::UserAgent -> new -> get("http://api.trakt.tv/user/profile.json/" . $config -> {"apikeys"} -> {"trakt"} . "/" . $2) -> decoded_content;
         my $dati = decode_json $json;
         if ($dati -> {"status"} eq "failure")
         {
@@ -19,7 +19,15 @@ sub parse
         else
         {
             my $tktnick = $dati -> {"username"};
-            say $irc "PRIVMSG $channel :$tktnick last watched ", $dati -> {watched}[0] -> {show} -> {title}, " S", $dati -> {watched}[0] -> {episode} -> {season}, "E", $dati -> {watched}[0] -> {episode} -> {number}, ".";
+
+            if (defined $dati -> {watched}[0] -> {show} -> {title})
+            {
+                say $irc "PRIVMSG $channel :$tktnick last watched ", $dati -> {watched}[0] -> {show} -> {title}, " S", $dati -> {watched}[0] -> {episode} -> {season}, "E", $dati -> {watched}[0] -> {episode} -> {number}, ".";
+            }
+            if (defined $dati -> {watched}[0] -> {movie} -> {title})
+            {
+                say $irc "PRIVMSG $channel :$tktnick last watched ", $dati -> {watched}[0] -> {movie} -> {title};
+            }
         }
     }
 }    

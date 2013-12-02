@@ -1,3 +1,0 @@
-This software is licensed under the DWTFYWWTC license.
-This means you can do whatever you want with the source code of the program and with the program itself.
-Just give the program's author some credit somewhere in your project page.

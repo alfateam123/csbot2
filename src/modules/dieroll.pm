@@ -5,7 +5,7 @@ use feature "say";
 
 sub parse
 {
-    my ($self, $line, $irc, $channel, $nick) = @_;
+    my ($self, $line, $irc, $config, $channel, $nick) = @_;
     if ($line =~ /^:(.+?)!.+?@.+? PRIVMSG ${channel} :roll (\d+)d(\d+)\s*$/i)
     {
         my $total = 0;
@@ -13,7 +13,7 @@ sub parse
         {
             $total += int(rand($3));
         }
-        say $irc "PRIVMSG $channel :Mh... $total";
+        say $irc "PRIVMSG $channel :$total";
     }
 }    
 1;

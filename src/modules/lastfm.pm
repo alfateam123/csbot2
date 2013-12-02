@@ -7,10 +7,10 @@ use feature "say";
 
 sub parse
 {
-    my ($self, $line, $irc, $channel, $nick) = @_;
-    if (/^:(.+?)!.+?@.+? PRIVMSG ${channel} :lastsong (.+?)$/i)
+    my ($self, $line, $irc, $config, $channel, $nick) = @_;
+    if (/^:(.+?)!.+?@.+? PRIVMSG ${channel} :lastfm (.+?)$/i)
     {
-        my $json = LWP::UserAgent -> new -> get("http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&api_key=<yourapikeyhere>&format=json&user=" . $2) -> decoded_content;
+        my $json = LWP::UserAgent -> new -> get("http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&api_key=" . $config -> {"apikeys"} -> {"lastfm"} . "&format=json&user=" . $2) -> decoded_content;
         my $dati = decode_json $json;
         if ($dati -> {"message"} eq "No user with that name was found")
         {
