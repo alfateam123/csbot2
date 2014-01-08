@@ -36,5 +36,5 @@ sub parse
             say $irc "PRIVMSG $channel :SCP-$scp", decode_entities($1), " http://www.scp-wiki.net/scp-$scp" if /<li><a href="\/scp-$scp">SCP-$scp<\/a>( - .*)<\/li>/i;
         }
     }
-}    
+}
 1;

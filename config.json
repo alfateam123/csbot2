@@ -1,6 +1,6 @@
 {
     "config": {
-        "version": "0.0.5, now with moar modules!",
+        "version": "0.1.0, now with 2014 goodness!",
         "server": "server",
         "port": 6667,
         "ssl": 0,

@@ -6,7 +6,7 @@ use IO::Socket::INET;
 use JSON;
 use feature "say";
 
-my @modules = ("autorejoin", "trakt", "lastfm", "specials", "dieroll", "scp", "mtg", "version", "emergency", "isup", "reddit");
+my @modules = ("autorejoin", "trakt", "lastfm", "specials", "dieroll", "scp", "mtg", "version", "emergency", "isup", "reddit", "niggaradio");
 foreach (@modules)
 {
     eval "use modules::$_";
@@ -46,7 +46,7 @@ while (<$irc>)
 {
     print;
     ($nick_s, $user_s, $host) = ($1, $2, $3) if /^:([^\s]+)!~?([^\s]+)@([^\s]+)/;
-    say $irc "QUIT :bb madafackas" if $nick_s ~~ $masters and /^[^\s]+ PRIVMSG ${channel} :gtfo.*${nick}.*/i;
+    say $irc "QUIT :bb madafackas" if $nick_s ~~ $masters and /^[^\s]+ PRIVMSG ${channel} :gtfo.*\b${nick}\b/i;
     say $irc "PONG :", $1 if /^PING :(.+)$/i;
     if (/^:[^\s]+ (?:422|376)/) {
         say $irc "PRIVMSG NickServ :identify ", $password;
@@ -70,6 +70,7 @@ while (<$irc>)
     csbot2::emergency->parse ($_, $irc, $config, $channel, $nick);
     csbot2::isup->parse ($_, $irc, $config, $channel, $nick);
     csbot2::reddit->parse ($_, $irc, $config, $channel, $nick);
+    csbot2::niggaradio->parse ($_, $irc, $config, $channel, $nick);
 
     ($nick_s, $user_s, $host) = ("", "", "");
 }
