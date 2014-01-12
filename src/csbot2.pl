@@ -6,7 +6,7 @@ use IO::Socket::INET;
 use JSON;
 use feature "say";
 
-my @modules = ("autorejoin", "trakt", "lastfm", "specials", "dieroll", "scp", "mtg", "version", "emergency", "isup", "reddit", "niggaradio");
+my @modules = ("autorejoin", "trakt", "lastfm", "specials", "dieroll", "scp", "mtg", "version", "emergency", "isup", "reddit", "niggaradio", "linktitles");
 foreach (@modules)
 {
     eval "use modules::$_";
@@ -71,6 +71,7 @@ while (<$irc>)
     csbot2::isup->parse ($_, $irc, $config, $channel, $nick);
     csbot2::reddit->parse ($_, $irc, $config, $channel, $nick);
     csbot2::niggaradio->parse ($_, $irc, $config, $channel, $nick);
+    csbot2::linktitles->parse ($_, $irc, $config, $channel, $nick);
 
     ($nick_s, $user_s, $host) = ("", "", "");
 }

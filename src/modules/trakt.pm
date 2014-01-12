@@ -20,6 +20,16 @@ sub parse
         {
             my $tktnick = $dati -> {"username"};
 
+            if (defined $dati -> {watching} -> {show} -> {title})
+            {
+                say $irc "PRIVMSG $channel :$tktnick is watching ", $dati -> {watching}-> {show} -> {title}, " S", $dati -> {watching} -> {episode} -> {season}, "E", $dati -> {watching}-> {episode} -> {number}, ".";
+                return;
+            }
+            if (defined $dati -> {watching}-> {movie} -> {title})
+            {
+                say $irc "PRIVMSG $channel :$tktnick is watching ", $dati -> {watching} -> {movie} -> {title};
+                return;
+            }            
             if (defined $dati -> {watched}[0] -> {show} -> {title})
             {
                 say $irc "PRIVMSG $channel :$tktnick last watched ", $dati -> {watched}[0] -> {show} -> {title}, " S", $dati -> {watched}[0] -> {episode} -> {season}, "E", $dati -> {watched}[0] -> {episode} -> {number}, ".";
