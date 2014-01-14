@@ -1,6 +1,5 @@
 {
     "config": {
-        "version": "0.1.0, now with 2014 goodness!",
         "server": "server",
         "port": 6667,
         "ssl": 0,
@@ -13,5 +12,25 @@
     "apikeys": {
         "trakt": "trakt API key",
         "lastfm": "lastfm API key"
-    }
+    },
+    "traktaliases": {
+        "nicolapcweek94": "nicolapcweek94"
+    },
+    "lastfmaliases": {
+        "nicolapcweek94": "citizenwasp"
+    },
+    "modules": [
+        "autorejoin", 
+        "trakt",
+        "lastfm",
+        "specials",
+        "dieroll",
+        "scp",
+        "mtg",
+        "emergency",
+        "isup",
+        "reddit",
+        "niggaradio",
+        "linktitles"
+    ]
 }

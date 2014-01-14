@@ -6,12 +6,6 @@ use IO::Socket::INET;
 use JSON;
 use feature "say";
 
-my @modules = ("autorejoin", "trakt", "lastfm", "specials", "dieroll", "scp", "mtg", "version", "emergency", "isup", "reddit", "niggaradio", "linktitles");
-foreach (@modules)
-{
-    eval "use modules::$_";
-    die("Cannot load $_ : $@") if $@;
-}
 my $jsonconf = "";
 open(my $config, "<", "config.json");
 foreach (<$config>)
@@ -19,8 +13,17 @@ foreach (<$config>)
     $jsonconf .= $_;
 }
 close $config;
-
 $config = decode_json $jsonconf;
+
+say $config -> {"modules"};
+my $modules = $config -> {"modules"};
+
+foreach (@$modules)
+{
+    eval "use modules::$_";
+    die("Cannot load $_ : $@") if $@;
+}
+
 $|++; # enable autoflushing
 
 my $server = $config -> {"config"} -> {"server"};
@@ -28,7 +31,8 @@ my $port = $config -> {"config"} -> {"port"};
 my $nick = $config -> {"config"} -> {"nick"};
 my $password = $config -> {"config"} -> {"password"};
 my $channel = $config -> {"config"} -> {"channel"};
-my $masters = ["nicolapcweek94", "robertof"];
+my $masters = ["nicolapcweek94", "Shotokan"];
+my $version = "0.1.1, now with aliases!";
 
 my $irc = IO::Socket::INET->new (
     PeerAddr => $server,
@@ -46,8 +50,13 @@ while (<$irc>)
 {
     print;
     ($nick_s, $user_s, $host) = ($1, $2, $3) if /^:([^\s]+)!~?([^\s]+)@([^\s]+)/;
+    
     say $irc "QUIT :bb madafackas" if $nick_s ~~ $masters and /^[^\s]+ PRIVMSG ${channel} :gtfo.*\b${nick}\b/i;
+    
+    say $irc "PRIVMSG $channel :$version" if /^:(.+?)!.+?@.+? PRIVMSG ${channel} :.*\b?${nick}\bversion.*$/i;
+
     say $irc "PONG :", $1 if /^PING :(.+)$/i;
+    
     if (/^:[^\s]+ (?:422|376)/) {
         say $irc "PRIVMSG NickServ :identify ", $password;
         say $irc "JOIN ", $channel;
@@ -66,7 +75,6 @@ while (<$irc>)
     csbot2::scp->parse($_, $irc, $config, $channel, $nick);
     csbot2::specials->parse ($_, $irc, $config, $channel, $nick);
     csbot2::mtg->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::version->parse ($_, $irc, $config, $channel, $nick);
     csbot2::emergency->parse ($_, $irc, $config, $channel, $nick);
     csbot2::isup->parse ($_, $irc, $config, $channel, $nick);
     csbot2::reddit->parse ($_, $irc, $config, $channel, $nick);

@@ -7,7 +7,7 @@ use feature "say";
 sub parse
 {
     my ($self, $line, $irc, $config, $channel, $nick) = @_;
-    if (/^:(.+?)!.+?@.+? PRIVMSG #nwa :.*(https?:\/\/(www\.)?\S+\.\w{2,6}\S+?)\s.*$/i)
+    if (/^:(.+?)!.+?@.+? PRIVMSG ${channel} :.*(https?:\/\/(www\.)?\S+\.\w{2,6}\S+?)\s.*$/i)
     {
         my $res = LWP::UserAgent -> new() -> get($2);
         if ($res -> is_success)
