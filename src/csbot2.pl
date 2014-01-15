@@ -32,7 +32,7 @@ my $nick = $config -> {"config"} -> {"nick"};
 my $password = $config -> {"config"} -> {"password"};
 my $channel = $config -> {"config"} -> {"channel"};
 my $masters = ["nicolapcweek94", "Shotokan"];
-my $version = "0.1.1, now with aliases!";
+my $version = "0.1.2, now with updater!";
 
 my $irc = IO::Socket::INET->new (
     PeerAddr => $server,
@@ -53,7 +53,7 @@ while (<$irc>)
     
     say $irc "QUIT :bb madafackas" if $nick_s ~~ $masters and /^[^\s]+ PRIVMSG ${channel} :gtfo.*\b${nick}\b/i;
     
-    say $irc "PRIVMSG $channel :$version" if /^:(.+?)!.+?@.+? PRIVMSG ${channel} :.*\b?${nick}\bversion.*$/i;
+    say $irc "PRIVMSG $channel :$version" if /^:(.+?)!.+?@.+? PRIVMSG ${channel} :.*\b?${nick} version.*$/i;
 
     say $irc "PONG :", $1 if /^PING :(.+)$/i;
     
@@ -62,24 +62,24 @@ while (<$irc>)
         say $irc "JOIN ", $channel;
     }
 
-    #foreach (@modules)
-    #{
-    #    my $mod = "csbot2::$_";
-    #    $mod->parse($_, $irc, $config, $channel, $nick);
-    #}
+    foreach my $name (@$modules)
+    {
+        my $mod = "csbot2::$name";
+        $mod->parse($_, $irc, $config, $channel, $nick);
+    }
     
-    csbot2::autorejoin->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::trakt->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::lastfm->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::dieroll->parse($_, $irc, $config, $channel, $nick);
-    csbot2::scp->parse($_, $irc, $config, $channel, $nick);
-    csbot2::specials->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::mtg->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::emergency->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::isup->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::reddit->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::niggaradio->parse ($_, $irc, $config, $channel, $nick);
-    csbot2::linktitles->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::autorejoin->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::trakt->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::lastfm->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::dieroll->parse($_, $irc, $config, $channel, $nick);
+    #csbot2::scp->parse($_, $irc, $config, $channel, $nick);
+    #csbot2::specials->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::mtg->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::emergency->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::isup->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::reddit->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::niggaradio->parse ($_, $irc, $config, $channel, $nick);
+    #csbot2::linktitles->parse ($_, $irc, $config, $channel, $nick);
 
     ($nick_s, $user_s, $host) = ("", "", "");
 }
