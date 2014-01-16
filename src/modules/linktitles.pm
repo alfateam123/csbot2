@@ -2,6 +2,7 @@ package csbot2::linktitles;
 use strict;
 use warnings;
 use LWP::UserAgent;
+use HTML::Entities;
 use feature "say";
 
 sub parse
@@ -14,7 +15,7 @@ sub parse
         {
             my $html = $res -> decoded_content;
             my $title = $1 if $html =~ /<title>(.*)<\/title>/i;
-            say $irc "PRIVMSG $channel :$title";
+            say $irc "PRIVMSG $channel :" . decode_entities($title);
         }
     }
 }    
