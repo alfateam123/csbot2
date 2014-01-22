@@ -6,6 +6,7 @@
         "channel": "#chan",
         "nick": "csbot2",
         "password": "pass",
+        "masters": ["nicolapcweek94"],
         "randomchars": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.;:-_+*^@#[]{}()=?/%$£!|\\",
         "quitline": "6 > 4 > 2 > 5 > 1 > 3"
     },
