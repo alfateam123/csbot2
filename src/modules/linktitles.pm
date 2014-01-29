@@ -8,14 +8,17 @@ use feature "say";
 sub parse
 {
     my ($self, $line, $irc, $config, $channel, $nick) = @_;
-    if (/^:(.+?)!.+?@.+? PRIVMSG ${channel} :.*(https?:\/\/(www\.)?\S+\.\w{2,6}\S+?)\s.*$/i)
+    if (/^:(.+?)!.+?@.+? PRIVMSG ${channel} :.*(https?:\/\/(www\.)?\S+\.\w{2,6}\S+?)\s?.*$/i)
     {
-        my $res = LWP::UserAgent -> new() -> get($2);
-        if ($res -> is_success)
+        if ($1 ne $nick)
         {
-            my $html = $res -> decoded_content;
-            my $title = $1 if $html =~ /<title>(.*)<\/title>/i;
-            say $irc "PRIVMSG $channel :" . decode_entities($title);
+            my $res = LWP::UserAgent -> new() -> get($2);
+            if ($res -> is_success)
+            {
+                my $html = $res -> decoded_content;
+                my $title = $1 if $html =~ /<title>(.*)<\/title>/i;
+                say $irc "PRIVMSG $channel :" . decode_entities($title);
+            }
         }
     }
 }    

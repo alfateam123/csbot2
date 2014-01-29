@@ -21,4 +21,4 @@ The first thing csbot does, of course after loading modules, is opening the conf
 That's it. Was it so hard to understand? Hope not!    
 
 ###3: Dependencies list
-The main module of csbot actually requires almost no dependencies, leaving all that shit to modules. It requires perl (a decently updated version, as it uses the `say` function to avoid printing newlines as they are the bane of my existence), some modules from the standard library (`strict`, `warnings`, `diagnostics` and `IO::Socket::INET`) and just one module from CPAN, `JSON`. It's easily installed, just run `cpan JSON` and you're done.
+The main module of csbot actually requires almost no dependencies, leaving all that shit to modules. It requires perl (a decently updated version, as it uses the `say` function to avoid printing newlines as they are the bane of my existence), some modules from the standard library (`strict`, `warnings`, `diagnostics` and `IO::Socket::INET`/`IO::Socket::SSL`) and just one module from CPAN, `JSON`. It's easily installed, just run `cpan JSON` and you're done.
