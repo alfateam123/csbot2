@@ -9,7 +9,7 @@ All the configuration is contained in a json file (`config.json`) placed in the 
 The main configuration hash contains basic informations like the server/channel to connect to, the nick to use and so on. They are:
 - "server": the hostname/ip of the irc server;
 - "port": the port to connect to, most server run raw tcp on 6667 and SSL on 6697;
-- "ssl": not used as of 22/01/2014, 0 if the connection is raw tcp/1 if SSL is to be used;
+- "ssl": 0 if the connection is raw tcp/1 if SSL is to be used;
 - "channel": the channel to connect to;
 - "nick": the nickname to use;
 - "password": The NickServ password to use (if the nickname is registered);

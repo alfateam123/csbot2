@@ -32,7 +32,7 @@ my $nick = $config -> {"config"} -> {"nick"};
 my $password = $config -> {"config"} -> {"password"};
 my $channel = $config -> {"config"} -> {"channel"};
 my $masters = $config -> {"config"} -> {"masters"};
-my $version = "0.1.3, now with docs!";
+my $version = "0.1.4, now with less nsa!";
 
 if ($config -> {"config"} -> {"ssl"} == 1)
 {
