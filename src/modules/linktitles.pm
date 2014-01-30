@@ -8,7 +8,7 @@ use feature "say";
 sub parse
 {
     my ($self, $line, $irc, $config, $channel, $nick) = @_;
-    if (/^:(.+?)!.+?@.+? PRIVMSG ${channel} :.*(https?:\/\/(www\.)?\S+\.\w{2,6}\S+?)\s?.*$/i)
+    if (/^:(.+?)!.+?@.+? PRIVMSG ${channel} :.*(https?:\/\/(www\.)?\S+\.\w{2,6}\S+)\b?.*$/i)
     {
         if ($1 ne $nick)
         {
