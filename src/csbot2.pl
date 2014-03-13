@@ -2,7 +2,6 @@
 use strict;
 use warnings;
 use diagnostics;
-use IO::Socket::INET;
 use JSON;
 use feature "say";
 
@@ -15,30 +14,44 @@ foreach (<$config>)
 close $config;
 $config = decode_json $jsonconf;
 
-say $config -> {"modules"};
 my $modules = $config -> {"modules"};
 
 foreach (@$modules)
 {
     eval "use modules::$_";
     die("Cannot load $_ : $@") if $@;
+    say $_;
 }
 
 $|++; # enable autoflushing
 
+my $irc;
 my $server = $config -> {"config"} -> {"server"};
 my $port = $config -> {"config"} -> {"port"};
 my $nick = $config -> {"config"} -> {"nick"};
 my $password = $config -> {"config"} -> {"password"};
 my $channel = $config -> {"config"} -> {"channel"};
 my $masters = $config -> {"config"} -> {"masters"};
-my $version = "0.1.3, now with docs!";
+my $version = "0.1.4, now with less nsa!";
 
-my $irc = IO::Socket::INET->new (
+if ($config -> {"config"} -> {"ssl"} == 1)
+{
+    eval "use IO::Socket::SSL";
+    $irc = IO::Socket::SSL -> new (
     PeerAddr => $server,
     PeerPort => $port,
     Proto => "tcp"
-) or die "Couldn't connect to IRC: $!";
+    ) or die "Couldn't connect to IRC: $!";
+}
+else
+{
+    eval "use IO::Socket::INET";
+    $irc = IO::Socket::INET -> new (
+        PeerAddr => $server,
+        PeerPort => $port,
+        Proto => "tcp"
+    ) or die "Couldn't connect to IRC: $!";
+}
 
 my ($nick_s, $user_s, $host) = ("", "", "");
 
