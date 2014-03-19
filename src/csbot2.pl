@@ -1,7 +1,7 @@
 #/usr/bin/env perl
 use strict;
 use warnings;
-use diagnostics;
+#use diagnostics;
 use JSON;
 use feature "say";
 
@@ -18,9 +18,11 @@ my $modules = $config -> {"modules"};
 
 foreach (@$modules)
 {
+    my $fullname = "csbot2::$_";
     eval "use modules::$_";
     die("Cannot load $_ : $@") if $@;
     say $_;
+    $fullname -> init();
 }
 
 $|++; # enable autoflushing
@@ -61,7 +63,7 @@ say $irc "NICK ", $nick;
 
 while (<$irc>)
 {
-    print;
+    #print;
     ($nick_s, $user_s, $host) = ($1, $2, $3) if /^:([^\s]+)!~?([^\s]+)@([^\s]+)/;
     
     say $irc "QUIT :bb madafackas" if $nick_s ~~ $masters and /^[^\s]+ PRIVMSG ${channel} :gtfo.*\b${nick}\b/i;
@@ -78,7 +80,7 @@ while (<$irc>)
     foreach my $name (@$modules)
     {
         my $mod = "csbot2::$name";
-        $mod->parse($_, $irc, $config, $channel, $nick);
+        $mod -> parse($_, $irc, $config, $channel, $nick);
     }
     
     ($nick_s, $user_s, $host) = ("", "", "");

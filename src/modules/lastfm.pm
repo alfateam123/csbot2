@@ -5,6 +5,11 @@ use JSON;
 use LWP::UserAgent;
 use feature "say";
 
+sub init
+{
+    say "[~] lastfm module init";
+}
+
 sub parse
 {
     my ($self, $line, $irc, $config, $channel, $nick) = @_;

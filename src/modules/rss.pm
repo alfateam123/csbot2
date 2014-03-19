@@ -32,6 +32,11 @@ sub loadSource{
     }
 }
 
+sub init
+{
+    say "[~] rss module init";
+}
+
 sub parse
 {
     my ($self, $line, $irc, $config, $channel, $nick) = @_;
