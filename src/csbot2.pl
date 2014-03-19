@@ -21,7 +21,7 @@ foreach (@$modules)
     my $fullname = "csbot2::$_";
     eval "use modules::$_";
     die("Cannot load $_ : $@") if $@;
-    say $_;
+    #say $_;
     $fullname -> init();
 }
 
