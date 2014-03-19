@@ -63,7 +63,7 @@ sub parse
             {
                 if (defined $dati -> {watching} -> {show} -> {title})
                 {
-                    say $irc "PRIVMSG $channel :$tktnick is watching \x02", $dati -> {watching}-> {show} -> {title}, " S", $dati -> {watching} -> {episode} -> {season}, "E", $dati -> {watching}-> {episode} -> {number}, "\x02.";
+                    say $irc "PRIVMSG $channel :$tktnick is watching \x02", $dati -> {watching}-> {show} -> {title}, " S", sprintf("%02d", $dati -> {watching} -> {episode} -> {season}), "E", sprintf("%02d", $dati -> {watching} -> {episode} -> {number}), "\x02.";
                     return;
                 }
                 if (defined $dati -> {watching}-> {movie} -> {title})
@@ -75,7 +75,7 @@ sub parse
             if (defined $dati -> {watched}[0] -> {show} -> {title})
             {
                 my $date = DateTime -> from_epoch(epoch => $dati -> {watched}[0] -> {watched});
-                say $irc "PRIVMSG $channel :$tktnick last watched \x02", $dati -> {watched}[0] -> {show} -> {title}, " S", $dati -> {watched}[0] -> {episode} -> {season}, "E", $dati -> {watched}[0] -> {episode} -> {number}, "\x02 on ", $date -> day_abbr, " ", $date -> month_abbr, " ", $date -> day, " ", $date -> year,".";
+                say $irc "PRIVMSG $channel :$tktnick last watched \x02", $dati -> {watched}[0] -> {show} -> {title}, " S", sprintf("%02d", $dati -> {watched}[0] -> {episode} -> {season}), "E", sprintf("%02d", $dati -> {watched}[0] -> {episode} -> {number}), "\x02 on ", $date -> day_abbr, " ", $date -> month_abbr, " ", $date -> day, " ", $date -> year,".";
             }
             if (defined $dati -> {watched}[0] -> {movie} -> {title})
             {
@@ -102,7 +102,7 @@ sub parse
             {
                 if (defined $dati -> {watching} -> {show} -> {title})
                 {
-                    say $irc "PRIVMSG $channel :$tktnick is watching \x02", $dati -> {watching}-> {show} -> {title}, " S", $dati -> {watching} -> {episode} -> {season}, "E", $dati -> {watching}-> {episode} -> {number}, "\x02.";
+                    say $irc "PRIVMSG $channel :$tktnick is watching \x02", $dati -> {watching}-> {show} -> {title}, " S", sprintf("%02d", $dati -> {watching} -> {episode} -> {season}), "E", sprintf("%02d", $dati -> {watching} -> {episode} -> {number}), "\x02.";
                     return;
                 }
                 if (defined $dati -> {watching}-> {movie} -> {title})
@@ -114,7 +114,7 @@ sub parse
             if (defined $dati -> {watched}[0] -> {show} -> {title})
             {
                 my $date = DateTime -> from_epoch(epoch => $dati -> {watched}[0] -> {watched});
-                say $irc "PRIVMSG $channel :$tktnick last watched \x02", $dati -> {watched}[0] -> {show} -> {title}, " S", $dati -> {watched}[0] -> {episode} -> {season}, "E", $dati -> {watched}[0] -> {episode} -> {number}, "\x02 on ", $date -> day_abbr, " ", $date -> month_abbr, " ", $date -> day, " ", $date -> year,".";
+                say $irc "PRIVMSG $channel :$tktnick last watched \x02", $dati -> {watched}[0] -> {show} -> {title}, " S", sprintf("%02d", $dati -> {watched}[0] -> {episode} -> {season}), "E", sprintf("%02d", $dati -> {watched}[0] -> {episode} -> {number}), "\x02 on ", $date -> day_abbr, " ", $date -> month_abbr, " ", $date -> day, " ", $date -> year,".";
             }
             if (defined $dati -> {watched}[0] -> {movie} -> {title})
             {
