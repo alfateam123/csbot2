@@ -1,7 +1,7 @@
 #csbot2 docs
 ###modules API
 
-Csbot2 was thought to be extremely modular, which is basically the reason I switched to perl in the first place. This means it includes a very basic "API", which allows modules to get some data from the main bot module (the socket, data from the user ho sent the message and so on). Modules needs to be in the csbot2::modulename package and they only need to implement the `parse` function. That function gets passed 6 parameters from the main loop:
+Csbot2 was thought to be extremely modular, which is basically the reason I switched to perl in the first place. This means it includes a very basic "API", which allows modules to get some data from the main bot module (the socket, data from the user ho sent the message and so on). Modules needs to be in the csbot2::modulename package and they only need to implement two functions: `parse` (executed for every line written on the channel) and `init` (executed just once, when the module is loaded). The parse function gets passed 6 parameters from the main loop:
 - The main bot instance
 - The message to be parsed
 - The socket to write on
@@ -29,5 +29,4 @@ This is a list of the modules included in this repo as of 23/01/2014 and their d
 - `rss.pm`: This module prints the first n elements of an RSS feed. It needs `XML::FeedPP` to work.
 - `scp.pm`: This module waits for a SCP to be mentioned and then fetches its name and link from the scp wiki. It needs `LWP::UserAgent` and `HTML::Entities` to work.
 - `specials.pm`: This module does special functions useful only to me, basically. No dependencies.
-- `textgen.pm`: This module does not work yet but it's supposed to be an implementation of markov chains for text generation. No dependencies.
-- `trakt.pm`: This module is used as a Trakt interface. It needs `JSON`, `LWP::UserAgent` and an API key defined in the config file.
+- `trakt.pm`: This module is used as a Trakt interface. It needs `JSON`, `LWP::UserAgent`, `DateTime` and an API key defined in the config file.
