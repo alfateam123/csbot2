@@ -8,6 +8,7 @@ use feature "say";
 sub init
 {
     say "[~] scp module init";
+}
 
 sub parse
 {
