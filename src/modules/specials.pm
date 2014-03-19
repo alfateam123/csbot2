@@ -6,6 +6,7 @@ use feature "say";
 sub init
 {
     say "[~] specials module init";
+}
 
 sub parse
 {
