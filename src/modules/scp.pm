@@ -5,6 +5,11 @@ use LWP::UserAgent;
 use HTML::Entities;
 use feature "say";
 
+sub init
+{
+    say "[~] scp module init";
+}
+
 sub parse
 {
     my ($self, $line, $irc, $config, $channel, $nick) = @_;

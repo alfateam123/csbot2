@@ -3,6 +3,11 @@ use strict;
 use warnings;
 use feature "say";
 
+sub init
+{
+    say "[~] dieroll module init";
+}
+
 sub parse
 {
     my ($self, $line, $irc, $config, $channel, $nick) = @_;
